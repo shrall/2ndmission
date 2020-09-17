@@ -30,7 +30,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public void onBindViewHolder(MainAdapter.ViewHolder holder, int position) {
         holder.aNama.setText(userArrayList.get(position).getNama());
         holder.aAlamat.setText(userArrayList.get(position).getAlamat());
-        holder.aUmur.setText(userArrayList.get(position).getUmur());
+        holder.aUmur.setText(userArrayList.get(position).getUmur()+" Years Old");
     }
 
     @Override

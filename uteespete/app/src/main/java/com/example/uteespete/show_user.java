@@ -4,12 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uteespete.model.Arrayd;
 import com.example.uteespete.model.User;
@@ -22,6 +24,7 @@ public class show_user extends AppCompatActivity {
     private User p;
     Button edit,delete;
     Toolbar toolbar;
+    ProgressDialog progressDialog;
 
     static String EXTRA_USERS = "extra";
     @Override
@@ -38,7 +41,7 @@ public class show_user extends AppCompatActivity {
         uaddress = findViewById(R.id.userAddress);
 
         uname.setText(p.getNama());
-        uage.setText(p.getUmur());
+        uage.setText(p.getUmur()+" Years Old");
         uaddress.setText(p.getAlamat());
         toolbar = findViewById(R.id.tooladd);
         AlertDialog.Builder builder1 = new AlertDialog.Builder(show_user.this);
@@ -49,6 +52,9 @@ public class show_user extends AppCompatActivity {
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        progressDialog = new ProgressDialog(show_user.this);
+                        progressDialog.show();
+                        progressDialog.setContentView(R.layout.ini_loading);
                         Iterator<User> iter = Arrayd.dataa.iterator();
                         while (iter.hasNext()) {
                             User user = iter.next();
@@ -56,6 +62,7 @@ public class show_user extends AppCompatActivity {
                                 iter.remove();
                             }
                         }
+                        Toast.makeText(show_user.this, "Delete Success", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(show_user.this, MainActivity.class);
                         startActivity(intent);
                     }

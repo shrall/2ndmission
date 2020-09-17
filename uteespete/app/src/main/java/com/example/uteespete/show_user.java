@@ -45,7 +45,7 @@ public class show_user extends AppCompatActivity {
         uaddress.setText(p.getAlamat());
         toolbar = findViewById(R.id.tooladd);
         AlertDialog.Builder builder1 = new AlertDialog.Builder(show_user.this);
-        builder1.setMessage("Are you sure you want to delete this?");
+        builder1.setMessage("Are you sure you want to delete "+p.getNama()+"?");
         builder1.setCancelable(true);
 
         builder1.setPositiveButton(

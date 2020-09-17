@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">uteespete</string>
+    <string name="tbmain">List Of Users</string>
+    <string name="inName">Name</string>
+    <string name="inAddress">Address</string>
+    <string name="inAge">Age</string>
+    <string name="buttonAddUser">ADD NEW USER</string>
+    <string name="adduser">Add User</string>
+</resources>

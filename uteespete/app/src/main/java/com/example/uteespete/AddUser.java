@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.uteespete.model.Arrayd;
 import com.example.uteespete.model.User;
@@ -26,7 +27,7 @@ public class AddUser extends AppCompatActivity implements TextWatcher {
     String name, address, age;
     Toolbar toolbar;
     ProgressDialog progressDialog;
-
+    int asd = 0;
     private User p;
     static String EXTRA_USER = "extra";
 
@@ -35,8 +36,7 @@ public class AddUser extends AppCompatActivity implements TextWatcher {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
-
-
+        asd = 0;
         tName = findViewById(R.id.tname);
         tAge = findViewById(R.id.tage);
         tAddress = findViewById(R.id.taddress);
@@ -79,32 +79,66 @@ public class AddUser extends AppCompatActivity implements TextWatcher {
             @Override
             public void onClick(View v) {
                 if (getIntent().getParcelableExtra(EXTRA_USER) == null) {
-                    progressDialog = new ProgressDialog(AddUser.this);
-                    progressDialog.show();
-                    progressDialog.setContentView(R.layout.ini_loading);
-                    User user = new User(name, address, age);
-                    Arrayd.dataa.add(new User(name, address, age));
-                    Intent intent = new Intent(AddUser.this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    if (!p.getNama().equals(name) || !p.getAlamat().equals(address) || !p.getUmur().equals(age)) {
-                        Iterator<User> iter = Arrayd.dataa.iterator();
-                        while (iter.hasNext()) {
-                            User user = iter.next();
-                            if (user.nama.equals(p.getNama())) {
-                                iter.remove();
-                            }
-                        }
+                    if (Arrayd.dataa.size() == 0) {
                         progressDialog = new ProgressDialog(AddUser.this);
                         progressDialog.show();
                         progressDialog.setContentView(R.layout.ini_loading);
                         User user = new User(name, address, age);
                         Arrayd.dataa.add(new User(name, address, age));
+                        Toast.makeText(AddUser.this, "Insert Success!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddUser.this, MainActivity.class);
                         startActivity(intent);
                     } else {
-                        Intent intent = new Intent(AddUser.this, MainActivity.class);
-                        startActivity(intent);
+                        for (int i = 0; i <= Arrayd.dataa.size(); i++) {
+                            if (Arrayd.dataa.get(i).getNama().equals(name)) {
+                                Toast.makeText(AddUser.this, "There's already a user with the same name!", Toast.LENGTH_SHORT).show();
+                                i += Arrayd.dataa.size();
+                            } else {
+                                progressDialog = new ProgressDialog(AddUser.this);
+                                progressDialog.show();
+                                progressDialog.setContentView(R.layout.ini_loading);
+                                User user = new User(name, address, age);
+                                Arrayd.dataa.add(new User(name, address, age));
+                                Toast.makeText(AddUser.this, "Insert Success!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(AddUser.this, MainActivity.class);
+                                startActivity(intent);
+                                break;
+                            }
+                        }
+
+
+                    }
+                } else {
+                    for (int i = 0; i < Arrayd.dataa.size(); i++) {
+                        if (Arrayd.dataa.get(i).getNama().equals(name)) {
+                            Toast.makeText(AddUser.this, "There's already a user with the same name!", Toast.LENGTH_SHORT).show();
+                            asd = 1;
+                            i += Arrayd.dataa.size();
+                        }
+
+                    }
+
+                    if (asd != 1) {
+                        if (!p.getNama().equals(name) || !p.getAlamat().equals(address) || !p.getUmur().equals(age)) {
+                            Iterator<User> iter = Arrayd.dataa.iterator();
+                            while (iter.hasNext()) {
+                                User user = iter.next();
+                                if (user.nama.equals(p.getNama())) {
+                                    iter.remove();
+                                }
+                            }
+                            progressDialog = new ProgressDialog(AddUser.this);
+                            progressDialog.show();
+                            progressDialog.setContentView(R.layout.ini_loading);
+                            User user = new User(name, address, age);
+                            Arrayd.dataa.add(new User(name, address, age));
+                            Toast.makeText(AddUser.this, "Update Success!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddUser.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(AddUser.this, MainActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 }
             }

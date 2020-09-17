@@ -62,7 +62,7 @@ public class show_user extends AppCompatActivity {
                                 iter.remove();
                             }
                         }
-                        Toast.makeText(show_user.this, "Delete Success", Toast.LENGTH_LONG).show();
+                        Toast.makeText(show_user.this, "Delete Success!", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(show_user.this, MainActivity.class);
                         startActivity(intent);
                     }

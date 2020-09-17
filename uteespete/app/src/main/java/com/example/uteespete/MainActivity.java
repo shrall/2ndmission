@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.uteespete.adapter.MainAdapter;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
 
+    TextView nodata;
     RecyclerView aRecyclerView;
     RecyclerView.LayoutManager aLayoutManager;
     RecyclerView.Adapter aAdapter;
@@ -32,8 +34,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        nodata = findViewById(R.id.nodata);
         userArrayList = Arrayd.dataa;
         fab = findViewById(R.id.addUser);
+
+        if (Arrayd.dataa.size()>0){
+            nodata.setVisibility(View.GONE);
+        }
 
         aRecyclerView = findViewById(R.id.recycler_view);
         aAdapter = new MainAdapter(userArrayList);
